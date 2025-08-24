@@ -12,7 +12,6 @@ type ListOrdersUseCase struct {
 
 func GetOrdersUseCase(
 	OrderRepository entity.OrderRepositoryInterface,
-	OrderCreated events.EventInterface,
 	EventDispatcher events.EventDispatcherInterface,
 ) *ListOrdersUseCase {
 	return &ListOrdersUseCase{

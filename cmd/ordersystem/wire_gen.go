@@ -28,8 +28,7 @@ func NewCreateOrderUseCase(db *sql.DB, eventDispatcher events.EventDispatcherInt
 
 func GetOrdersUseCase(db *sql.DB, eventDispatcher events.EventDispatcherInterface) *usecase.ListOrdersUseCase {
 	orderRepository := database.NewOrderRepository(db)
-	orderCreated := event.NewOrderCreated()
-	listOrdersUseCase := usecase.GetOrdersUseCase(orderRepository, orderCreated, eventDispatcher)
+	listOrdersUseCase := usecase.GetOrdersUseCase(orderRepository, eventDispatcher)
 	return listOrdersUseCase
 }
 

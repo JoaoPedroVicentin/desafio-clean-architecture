@@ -3,7 +3,6 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"net"
 	"net/http"
 
 	graphql_handler "github.com/99designs/gqlgen/graphql/handler"
@@ -11,13 +10,9 @@ import (
 	"github.com/JoaoPedroVicentin/desafio-clean-architecture/configs"
 	"github.com/JoaoPedroVicentin/desafio-clean-architecture/internal/event/handler"
 	"github.com/JoaoPedroVicentin/desafio-clean-architecture/internal/infra/graph"
-	"github.com/JoaoPedroVicentin/desafio-clean-architecture/internal/infra/grpc/pb"
-	"github.com/JoaoPedroVicentin/desafio-clean-architecture/internal/infra/grpc/service"
 	"github.com/JoaoPedroVicentin/desafio-clean-architecture/internal/infra/web/webserver"
 	"github.com/JoaoPedroVicentin/desafio-clean-architecture/pkg/events"
 	"github.com/streadway/amqp"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/reflection"
 
 	// mysql
 	_ "github.com/go-sql-driver/mysql"
@@ -52,17 +47,17 @@ func main() {
 	fmt.Println("Starting web server on port", configs.WebServerPort)
 	go webserver.Start()
 
-	grpcServer := grpc.NewServer()
-	createOrderService := service.NewOrderService(*createOrderUseCase)
-	pb.RegisterOrderServiceServer(grpcServer, createOrderService)
-	reflection.Register(grpcServer)
+	// grpcServer := grpc.NewServer()
+	// createOrderService := service.NewOrderService(*createOrderUseCase)
+	// pb.RegisterOrderServiceServer(grpcServer, createOrderService)
+	// reflection.Register(grpcServer)
 
-	fmt.Println("Starting gRPC server on port", configs.GRPCServerPort)
-	lis, err := net.Listen("tcp", fmt.Sprintf(":%s", configs.GRPCServerPort))
-	if err != nil {
-		panic(err)
-	}
-	go grpcServer.Serve(lis)
+	// fmt.Println("Starting gRPC server on port", configs.GRPCServerPort)
+	// lis, err := net.Listen("tcp", fmt.Sprintf(":%s", configs.GRPCServerPort))
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// go grpcServer.Serve(lis)
 
 	srv := graphql_handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{
 		CreateOrderUseCase: *createOrderUseCase,

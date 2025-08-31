@@ -27,32 +27,20 @@ go mod tidy
 docker compose up -d
 ```
 
-### 4. Entre no container do mySql
+### 4. Gere a migration
 
 ```bash
-docker exec -it <container-id> bash
+make migrate
 ```
 
-### 5. Acesse e digite a senha: root
-
-```bash
-mysql -uroot -p orders
-```
-
-### 6. Gere a migration
-
-```bash
-CREATE TABLE orders (id varchar(255) NOT NULL, price float NOT NULL, tax float NOT NULL, final_price float NOT NULL, PRIMARY KEY (id));
-```
-
-### 7. Inicie o programa
+### 5. Inicie o programa
 
 ```bash
 cd cmd/ordersystem
 go run main.go wire_gen.go
 ```
 
-### 8. Caso esteja tudo funcionando, a mensagem no terminal aparecerá
+### 6. Caso esteja tudo funcionando, a mensagem no terminal aparecerá
 
 ```bash
 Starting web server on port :8000

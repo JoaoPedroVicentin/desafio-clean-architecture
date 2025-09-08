@@ -1,7 +1,7 @@
 
 # Desafio GoExpert - Clean Architecture
 
-O deafio inclui implementar o useCase para listar os pedidos e realizar a consulta com:
+O desafio inclui implementar o useCase para listar os pedidos e realizar a consulta com:
 - Endpoint REST (GET /orders)
 - Service ListOrders com GRPC
 - Query ListOrders GraphQL
